@@ -23,12 +23,20 @@ LOCATION="subregion=&leftlon=${LEFT_LON}&rightlon=${RIGHT_LON}&toplat=${TOP_LAT}
 DATE=$(date +%Y%m%d)
 HR=00   # is this necessary
 
+LOG_FILE="gfs.${DATE}.log"
+
 if [[ ! -d $DIR  ]]
 then
 	mkdir $DIR
 fi
 
+# Move to the DL directory
 cd $DIR
+
+if [[ ! -a $LOG_FILE ]]
+then
+	touch $LOG_FILE
+fi
 
 # For the next 16 days download forcast data every 6 hours
 for fhr in {000..384..6}
@@ -43,10 +51,20 @@ do
 
 	OUTPUT="gfs.t${hr}.pgrb2.0p25.f${fhr}"
 
-	# Download the grib file using curl
-	if [[ ! -a $OUTPUT ]]
+	cat $LOG_FILE | grep $OUTPUT
+	# Checking if the file is already downloaded
+
+	if [[ "$?" -eq 1  ]] # File is not on the log
 	then
-		/usr/bin/curl "$URL" -o "$OUTPUT"
+
+		# Delete the file, i.e the unfinished download
+		if [[ -a $OUTPUT ]]
+		then
+			rm $OUTPUT
+		fi
+
+		# Download the grib file using curl
+		/usr/bin/curl "$URL" -o "$OUTPUT" && echo "$OUTPUT" >> $LOG_FILE
 	fi
 
 done
