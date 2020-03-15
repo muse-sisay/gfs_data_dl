@@ -46,7 +46,7 @@ do
 	# Construct URL
 	URL="${FILTER}?${FILE}&${OPTION}&${LOCATION}&${FILE_DIR}"
 
-	OUTPUT="gfs.t${hr}.pgrb2.0p25.f${fhr}"
+	OUTPUT="gfs.t${HR}.pgrb2.0p25.f${fhr}"
 
 	cat $LOG_FILE | grep $OUTPUT
 	# Checking if the file is already downloaded
