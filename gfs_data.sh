@@ -1,7 +1,10 @@
 #!/bin/bash
 
 GFS_DIR=$(pwd)
-export $GFS_DIR
+DATE=$(date +%Y%m%d)
+
+export GFS_DIR
+export DATE
 
 # Start the downloader script
 ${GFS_DIR}/gfs_data_downloader.sh
