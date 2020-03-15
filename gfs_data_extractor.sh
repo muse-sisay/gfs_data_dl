@@ -94,7 +94,7 @@ do
 	if [[  $(( ${END_FHR#0} % 24 )) -eq 0 ]]
 	then 
 		DAY=$(( ${END_FHR#0} /24))
-		OUT_FILE="total_wrf_rf_d_0${DAY}.nc"
+		OUT_FILE="${NC_DIR}/total_wrf_rf_d_0${DAY}.nc"
 		wgrib2 $IN_FILE -s | egrep "(:APCP:surface:0-${DAY} day)" | wgrib2 -i $IN_FILE -netcdf  $OUT_FILE	
 	fi
 
