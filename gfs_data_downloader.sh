@@ -4,10 +4,8 @@
 # Hourly Grib Data Downloader
 # TO DO LIST : log file
 
-DATE=$(date +%Y%m%d)
-
 # Download Directory
-DIR="{GFS_DIR}/ICBC_GFS_data/${DATE}"
+DIR="${GFS_DIR}/ICBC_GFS_data/${DATE}"
 
 # Location (long, latt )
 LEFT_LON=32
