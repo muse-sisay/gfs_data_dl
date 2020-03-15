@@ -2,10 +2,8 @@
 
 # GFS Extractor
 
-DATE=$(date +%Y%m%d)
-
 # Move to todays DIR
-if [[ "$(pwd)" -ne "$GFS_DIR/${DATE}" ]]
+if [[ "$(pwd)" -ne "${GFS_DIR}/${DATE}" ]]
 then
 	cd $GFS_DIR
 fi
@@ -14,7 +12,7 @@ NC_DIR="./NC_files"
 
 if [[ !  -d $NC_DIR ]]
 then
-	mdkir  $NC_DIR
+	mdkir $NC_DIR
 fi
 
 HR=00
