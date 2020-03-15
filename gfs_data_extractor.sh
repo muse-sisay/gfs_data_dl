@@ -5,14 +5,14 @@
 # Move to todays DIR
 if [[ ! "$(pwd)" -ef "${GFS_DIR}/ICBC_GFS_data/${DATE}" ]]
 then
-	cd ${GFS_DIR}/ICBC_GFS_data/${DATE}"
+	cd "${GFS_DIR}/ICBC_GFS_data/${DATE}"
 fi
 
 NC_DIR="./NC_files"
 
 if [[ !  -d $NC_DIR ]]
 then
-	mdkir $NC_DIR
+	mkdir $NC_DIR
 fi
 
 HR=00
@@ -91,13 +91,13 @@ do
 	wgrib2 $IN_FILE -s | egrep '(:UGRD:1000 mb:${END_FHR}|:VGRD:1000 mb:${END_FHR}|:UGRD:850 mb:${END_FHR}|:VGRD:850 mb:${END_FHR}|:UGRD:250 mb:${END_FHR}|:VGRD:250 mb:${END_FHR}|:UGRD:500 mb:${END_FHR}|:VGRD:500 mb:${END_FHR}|:UGRD:200 mb:${END_FHR}|:VGRD:200 mb:${END_FHR}|:UGRD:700 mb:${END_FHR}|:VGRD:700 mb:${END_FHR}|:RH:1000 mb:${END_FHR}|:RH:850 mb:${END_FHR}|RH:250 mb:${END_FHR}|:RH:700 mb:${END_FHR}|:RH:500 mb:${END_FHR}|:RH:200 mb:${END_FHR}|:RH:entire atmosphere (considered as a single layer):${END_FHR}|:RH:highest tropospheric freezing level:${END_FHR}|:PRMSL:mean sea level:${END_FHR}|:RH:highest tropospheric freezing level:${END_FHR}|:HGT:highest tropospheric freezing level:${END_FHR}|:UGRD:max wind:${END_FHR}|:VGRD:max wind:${END_FHR}|:CWAT:entire atmosphere (considered as a single layer):${END_FHR}|:DZDT:1000 mb:${END_FHR}|:DZDT:850 mb:${END_FHR}|:DZDT:500 mb:${END_FHR}|:DZDT:250 mb:${END_FHR}|:DZDT:200 mb:${END_FHR}|:VIS:surface:${END_FHR}|:UGRD:planetary boundary layer:${END_FHR}|:VGRD:planetary boundary layer:${END_FHR}|:GUST:surface:${END_FHR}|:TSOIL:0-0.1 m below ground:${END_FHR}|:SOILW:0-0.1 m below ground:${END_FHR}|:TSOIL:0.1-0.4 m below ground:${END_FHR}|:SOILW:0.1-0.4 m below ground:${END_FHR}|:TSOIL:0.4-1 m below ground:${END_FHR}|:SOILW:0.4-1 m below ground:${END_FHR}|:TSOIL:1-2 m below ground:${END_FHR}|:SOILW:1-2 m below ground:${END_FHR}|:WEASD:surface:${END_FHR}|:PEVPR:surface:${END_FHR}|:TMP:2 m above ground:${END_FHR}|:RH:2 m above ground:${END_FHR})' | wgrib2 -i $IN_FILE -netcdf  $OUT_FILE_UGRD
 
 
-	if [[  $(( ${END_FHR#0} % 24)) -eq 0 ]]
+	if [[  $(( ${END_FHR#0} % 24 )) -eq 0 ]]
 	then 
 		DAY=$(( ${END_FHR#0} /24))
 		OUT_FILE="total_wrf_rf_d_0${DAY}.nc"
 		wgrib2 $IN_FILE -s | egrep '(:APCP:surface:0-${DAY} day)' | wgrib2 -i $IN_FILE -netcdf  $OUT_FILE	
 	fi
 
-	BEGIN_HR=$END_FHR
+	BEGIN_FHR=$END_FHR
 
 done
