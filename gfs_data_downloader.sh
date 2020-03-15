@@ -39,12 +39,12 @@ then
 fi
 
 # For the next 16 days download forcast data every 6 hours
-for fhr in {000..384..6}
+for fhr in {000..6}
 do
 
 	# Additonal URL parameter
-	FILE="file=gfs.t${hr}z.pgrb2.0p25.f${fhr}"
-	FILE_DIR="dir=%2Fgfs.${dt}%2F${hr}"
+	FILE="file=gfs.t${HR}z.pgrb2.0p25.f${fhr}"
+	FILE_DIR="dir=%2Fgfs.${DATE}%2F${HR}"
 
 	# Construct URL
 	URL="${FILTER}?${FILE}&${OPTION}&${LOCATION}&${FILE_DIR}"
