@@ -4,9 +4,10 @@
 # Hourly Grib Data Downloader
 # TO DO LIST : log file
 
+DATE=$(date +%Y%m%d)
 
 # Download Directory
-DIR="./ICBC_GFS_data"
+DIR="{GFS_DIR}/ICBC_GFS_data/${DATE}"
 
 # Location (long, latt )
 LEFT_LON=32
@@ -19,15 +20,13 @@ FILTER="https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl"
 OPTION="all_lev=on&var_ACPCP=on&var_APCP=on&var_CAPE=on&var_CPRAT=on&var_CWAT=on&var_DZDT=on&var_FLDCP=on&var_GUST=on&var_HGT=on&var_HPBL=on&var_LFTX=on&var_PEVPR=on&var_PLPL=on&var_PRATE=on&var_PRMSL=on&var_RH=on&var_SOILW=on&var_SUNSD=on&var_TMAX=on&var_TMIN=on&var_TMP=on&var_TSOIL=on&var_UFLX=on&var_UGRD=on&var_ULWRF=on&var_USTM=on&var_USWRF=on&var_VFLX=on&var_VGRD=on&var_VIS=on&var_VSTM=on&var_VWSH=on&var_WATR=on&var_WEASD=on&var_WILT=on"
 LOCATION="subregion=&leftlon=${LEFT_LON}&rightlon=${RIGHT_LON}&toplat=${TOP_LAT}&bottomlat=${BOTTOM_LAT}"
 
-
-DATE=$(date +%Y%m%d)
 HR=00   # is this necessary
 
 LOG_FILE="gfs.${DATE}.log"
 
 if [[ ! -d $DIR  ]]
 then
-	mkdir $DIR
+	mkdir -p $DIR
 fi
 
 # Move to the DL directory
@@ -39,7 +38,7 @@ then
 fi
 
 # For the next 16 days download forcast data every 6 hours
-for fhr in {000..6}
+for fhr in {000..384..6}
 do
 
 	# Additonal URL parameter
@@ -68,3 +67,5 @@ do
 	fi
 
 done
+
+exit 0
