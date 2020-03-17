@@ -1,6 +1,9 @@
 #!/bin/bash
 
+# GFS Direcotry
 GFS_DIR=$(pwd)
+# The date that the gfs data should be downloaded for 
+# change to any date wanted, Format ( yyyymmdd )
 DATE=$(date +%Y%m%d)
 
 export GFS_DIR
@@ -11,3 +14,7 @@ ${GFS_DIR}/gfs_data_downloader.sh
 
 # Start the nc Extractor
 ${GFS_DIR}/gfs_data_extractor.sh
+
+
+# Perform Archival
+${GFS_DIR}/gfs_data_archive.sh
