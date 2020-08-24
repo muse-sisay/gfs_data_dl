@@ -60,8 +60,19 @@ do
 			rm $OUTPUT
 		fi
 
+		
+		if aria2c -v > /dev/null 2>&1
+		then 
+		    aria2c "$URL" -o "$OUTPUT" && echo "$OUTPUT" >> $LOG_FILE
 		# Download the grib file using curl
-		/usr/bin/curl "$URL" -o "$OUTPUT" && echo "$OUTPUT" >> $LOG_FILE
+		else if curl -v > /dev/null 2>&1
+		then
+		    /usr/bin/curl "$URL" -o "$OUTPUT" && echo "$OUTPUT" >> $LOG_FILE
+		else 
+		    echo "curl or aria2c not found in PATH" >> $LOG_FILE
+		    exit
+		fi
+
 	fi
 
 done
