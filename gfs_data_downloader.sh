@@ -7,11 +7,6 @@
 # Download Directory
 DIR="${GFS_DIR}/ICBC_GFS_data/${DATE}"
 
-# Location (long, latt )
-LEFT_LON=32
-RIGHT_LON=52
-TOP_LAT=17
-BOTTOM_LAT=0
 
 # URL parameters
 FILTER="https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl"
